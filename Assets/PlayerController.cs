@@ -12,15 +12,17 @@ public class PlayerController : NetworkBehaviour
     public GameObject arrow;
 
     public Transform bulletSpawn;
+    public Transform playerSpawn;
+
+    public GameObject temp;
 
     NavMeshAgent agent;
+
     //Text myScore;
     int count = 0;
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-       /* myScore = GameObject.Find("Score").GetComponent<Text>();
-        myScore.text = "Count : " + count.ToString();*/
     }
     // Update is called once per frame
     void Update()
@@ -31,11 +33,6 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-        /*var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f;
-        var z = Input.GetAxis("Vertical") * Time.deltaTime * 3.0f;
-
-        transform.Rotate(0, x, 0);
-        transform.Translate(0, 0, z);*/
         if (Input.GetMouseButtonDown(1))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -79,22 +76,25 @@ public class PlayerController : NetworkBehaviour
         Destroy(bullet2, 2.0f);
     }
 
-    /*private void OnTriggerEnter(Collider other)
+    [Command]
+    void CmdSpawn(GameObject go)
     {
-        if(other.Equals(bulletPrefab))
-        {
-            count++;
-            myScore.text = "Count : " + count.ToString();
-        }
-    }*/
-    /*private void OnCollisionEnter(Collision collision)
+        NetworkServer.Spawn(go);
+        NetworkServer.ReplacePlayerForConnection(connectionToClient, go, playerControllerId);
+        Destroy(gameObject);
+    }
+    private void OnCollisionEnter(Collision collision)
     {
-        //
-        if (collision.transform.tag=="Bullet")
+        Debug.Log("Collision");
+        if (collision.transform.tag == "Tree")
         {
-            count++;
-            myScore.text = "Count : " + count.ToString();
+            Vector3 spawnPoint = Vector3.zero;
+            spawnPoint = playerSpawn.transform.position;
+            GameObject ashe = Instantiate(temp, spawnPoint, Quaternion.identity);
+            ashe.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(ashe);
         }
         //Destroy(collision.gameObject);
-    }*/
+    }
+
 }

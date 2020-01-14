@@ -11,10 +11,20 @@ public class Bullet : MonoBehaviour
         var hit = collision.gameObject;
         var health = hit.GetComponent<Health>();
 
-        if(health!=null)
+        if (health != null)
         {
             health.TakeDamage(10);
         }
+        var score = hit.GetComponent<Score>();
+
+        if (score != null)
+        {
+            Debug.Log("it's not null");
+            score.TakeScore();
+        }
+        else
+            Debug.Log("It's null");
+
         Destroy(gameObject);
     }
 }
