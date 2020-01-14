@@ -9,6 +9,7 @@ public class PlayerController : NetworkBehaviour
 {
     // Start is called before the first frame update
     public GameObject bulletPrefab;
+    public GameObject arrow;
 
     public Transform bulletSpawn;
 
@@ -50,6 +51,10 @@ public class PlayerController : NetworkBehaviour
         {
             CmdFire();
         }
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            CmdArrowFire();
+        }
     }
 
     [Command]
@@ -62,6 +67,16 @@ public class PlayerController : NetworkBehaviour
         NetworkServer.Spawn(bullet);
 
         Destroy(bullet, 2.0f);
+    }
+    void CmdArrowFire()
+    {
+        GameObject bullet2 = Instantiate(arrow, bulletSpawn.position, bulletSpawn.rotation);
+        
+        bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 30;
+
+        NetworkServer.Spawn(bullet2);
+
+        Destroy(bullet2, 2.0f);
     }
 
     /*private void OnTriggerEnter(Collider other)
