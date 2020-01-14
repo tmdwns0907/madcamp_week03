@@ -9,6 +9,7 @@ TagManager:
   - SecondWall
   - ThirdWall
   - FourthWall
+  - NewChamp
   layers:
   - Default
   - TransparentFX
