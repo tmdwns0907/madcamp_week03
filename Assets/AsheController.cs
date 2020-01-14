@@ -12,6 +12,8 @@ public class AsheController : NetworkBehaviour
 
     public Transform bulletSpawn;
 
+    public GameObject ashe;
+    public GameObject anivia;
 
     NavMeshAgent agent;
 
@@ -77,42 +79,60 @@ public class AsheController : NetworkBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+        if(!isServer)
+            return;
         if (collision.transform.tag == "FirstWall")
         {
             Vector3 spawnPoint = Vector3.zero;
             spawnPoint = spawnArray2[Random.Range(0, spawnArray2.Length)];
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
-            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
-            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
-            CmdSpawn(champ);
+            GameObject temp;
+            int temp_num = Random.Range(0, 2);
+            if (temp_num == 0)
+                temp = Instantiate(ashe, spawnPoint, Quaternion.identity);
+            else
+                temp = Instantiate(anivia, spawnPoint, Quaternion.identity);
+            temp.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(temp);
         }
         else if (collision.transform.tag == "SecondWall")
         {
             Vector3 spawnPoint = Vector3.zero;
             spawnPoint = spawnArray3[Random.Range(0, spawnArray3.Length)];
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
-            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
-            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
-            CmdSpawn(champ);
+            GameObject temp;
+            int temp_num = Random.Range(0, 2);
+            if (temp_num == 0)
+                temp = Instantiate(ashe, spawnPoint, Quaternion.identity);
+            else
+                temp = Instantiate(anivia, spawnPoint, Quaternion.identity);
+            temp.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(temp);
         }
         else if (collision.transform.tag == "ThirdWall")
         {
             Vector3 spawnPoint = Vector3.zero;
             spawnPoint = spawnArray4[Random.Range(0, spawnArray4.Length)];
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
-            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
-            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
-            CmdSpawn(champ);
+            GameObject temp;
+            int temp_num = Random.Range(0, 2);
+            if (temp_num == 0)
+                temp = Instantiate(ashe, spawnPoint, Quaternion.identity);
+            else
+                temp = Instantiate(anivia, spawnPoint, Quaternion.identity);
+            temp.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(temp);
         }
         else if (collision.transform.tag == "FourthWall")
         {
             gameObject.GetComponent<Score>().TakeScore();
             Vector3 spawnPoint = Vector3.zero;
             spawnPoint = spawnArray1[Random.Range(0, spawnArray1.Length)];
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
-            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
-            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
-            CmdSpawn(champ);
+            GameObject temp;
+            int temp_num = Random.Range(0, 2);
+            if (temp_num == 0)
+                temp = Instantiate(ashe, spawnPoint, Quaternion.identity);
+            else
+                temp = Instantiate(anivia, spawnPoint, Quaternion.identity);
+            temp.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(temp);
         }
     }
 

@@ -56,7 +56,7 @@ public class Health : NetworkBehaviour
 
             if(spawnPoints!=null && spawnPoints.Length>0)
             {
-                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position;
+                spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length-1)].transform.position;
             }
             transform.position = spawnPoint;
         }

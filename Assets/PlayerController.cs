@@ -12,8 +12,12 @@ public class PlayerController : NetworkBehaviour
     public GameObject arrow;
 
     public Transform bulletSpawn;
+    public Transform arrowSpawn;
 
+    public GameObject ashe;
+    public GameObject anivia;
 
+    public GameObject[] champArray;
     NavMeshAgent agent;
 
     Vector3[] spawnArray = { new Vector3(110, 10, 110), new Vector3(120, 10, 110) };
@@ -66,7 +70,7 @@ public class PlayerController : NetworkBehaviour
     }
     void CmdArrowFire()
     {
-        GameObject bullet2 = Instantiate(arrow, bulletSpawn.position, bulletSpawn.rotation);
+        GameObject bullet2 = Instantiate(arrow, arrowSpawn.position, arrowSpawn.rotation);
         
         bullet2.GetComponent<Rigidbody>().velocity = bullet2.transform.forward * 30;
 
@@ -84,15 +88,22 @@ public class PlayerController : NetworkBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
+
         Debug.Log("Collision");
         if (collision.transform.tag == "FirstWall")
         {
+            if (!isServer)
+                return;
             Vector3 spawnPoint = Vector3.zero;
             spawnPoint = spawnArray[Random.Range(0, spawnArray.Length)];
-            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
-            GameObject ashe = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
-            ashe.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
-            CmdSpawn(ashe);
+            GameObject temp;
+            int temp_num = Random.Range(0, 2);
+            if(temp_num==0)
+                temp = Instantiate(ashe, spawnPoint, Quaternion.identity);
+            else
+                temp = Instantiate(anivia, spawnPoint, Quaternion.identity);
+            temp.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(temp);
         }
         //Destroy(collision.gameObject);
     }

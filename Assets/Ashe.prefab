@@ -635,7 +635,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score: 0
-  scoreBoard: {fileID: 3286749013315561938}
+  scoreBoard: {fileID: 6074662711890869974}
   passed: 0
 --- !u!114 &5925362971644584833
 MonoBehaviour:
@@ -652,6 +652,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 3174461759151536892, guid: 974333cceb2a5d24b92dbb418813913a,
     type: 3}
   bulletSpawn: {fileID: 5824424940867450236}
+  ashe: {fileID: 1939352841424353327}
+  anivia: {fileID: 1830481212717252280, guid: 4e1e38bded6be45488fecf74ddddc7a2, type: 3}
 --- !u!1 &2879601431440715189
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +715,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
-  - {fileID: 3286749013315561930}
+  - {fileID: 6074662711890869975}
   m_Father: {fileID: 5018466230971556054}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1103,13 +1105,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3970a15325ea715468a08c3ef1d6d93e, type: 3}
---- !u!224 &3286749013315561930 stripped
+--- !u!224 &6074662711890869975 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8777912998956816217, guid: 3970a15325ea715468a08c3ef1d6d93e,
     type: 3}
   m_PrefabInstance: {fileID: 3286749013315561870}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3286749013315561938 stripped
+--- !u!114 &6074662711890869974 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8777912998956816216, guid: 3970a15325ea715468a08c3ef1d6d93e,
     type: 3}
