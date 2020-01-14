@@ -12,12 +12,11 @@ public class PlayerController : NetworkBehaviour
     public GameObject arrow;
 
     public Transform bulletSpawn;
-    public Transform playerSpawn;
 
-    public GameObject temp;
 
     NavMeshAgent agent;
 
+    Vector3[] spawnArray = { new Vector3(110, 10, 110), new Vector3(120, 10, 110) };
     //Text myScore;
     int count = 0;
     private void Start()
@@ -86,11 +85,12 @@ public class PlayerController : NetworkBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collision");
-        if (collision.transform.tag == "Tree")
+        if (collision.transform.tag == "FirstWall")
         {
             Vector3 spawnPoint = Vector3.zero;
-            spawnPoint = playerSpawn.transform.position;
-            GameObject ashe = Instantiate(temp, spawnPoint, Quaternion.identity);
+            spawnPoint = spawnArray[Random.Range(0, spawnArray.Length)];
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
+            GameObject ashe = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
             ashe.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
             CmdSpawn(ashe);
         }

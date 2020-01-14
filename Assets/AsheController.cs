@@ -11,15 +11,15 @@ public class AsheController : NetworkBehaviour
     public GameObject bulletPrefab;
 
     public Transform bulletSpawn;
-    public Transform playerSpawn;
+
 
     NavMeshAgent agent;
 
-    private NetworkStartPosition spawnPoints;
-    //Text myScore;
-    public Text scoreBoard;
-    //Text myScore;
-    int count = 0;
+    Vector3[] spawnArray1 = { new Vector3(-110, 10, 110), new Vector3(-110, 10, 120) };
+    Vector3[] spawnArray2 = { new Vector3(110, 10, 110), new Vector3(120, 10, 110) };
+    Vector3[] spawnArray3 = { new Vector3(110, 10, -110), new Vector3(110, 10, -120) };
+    Vector3[] spawnArray4 = { new Vector3(-110, 10, -110), new Vector3(-110, 10, -110) };
+
     private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -77,15 +77,43 @@ public class AsheController : NetworkBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Tree")
+        if (collision.transform.tag == "FirstWall")
         {
             Vector3 spawnPoint = Vector3.zero;
-            spawnPoint = playerSpawn.transform.position;
-            GameObject temp = GameObject.FindGameObjectWithTag("Player");
-            GameObject ashe = Instantiate(temp, spawnPoint, Quaternion.identity);
-            CmdSpawn(ashe);
+            spawnPoint = spawnArray2[Random.Range(0, spawnArray2.Length)];
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
+            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
+            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(champ);
         }
-        //Destroy(collision.gameObject);
+        else if (collision.transform.tag == "SecondWall")
+        {
+            Vector3 spawnPoint = Vector3.zero;
+            spawnPoint = spawnArray3[Random.Range(0, spawnArray3.Length)];
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
+            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
+            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(champ);
+        }
+        else if (collision.transform.tag == "ThirdWall")
+        {
+            Vector3 spawnPoint = Vector3.zero;
+            spawnPoint = spawnArray4[Random.Range(0, spawnArray4.Length)];
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
+            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
+            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(champ);
+        }
+        else if (collision.transform.tag == "FourthWall")
+        {
+            gameObject.GetComponent<Score>().TakeScore();
+            Vector3 spawnPoint = Vector3.zero;
+            spawnPoint = spawnArray1[Random.Range(0, spawnArray1.Length)];
+            GameObject[] temp = GameObject.FindGameObjectsWithTag("NewChamp");
+            GameObject champ = Instantiate(temp[Random.Range(0, temp.Length)], spawnPoint, Quaternion.identity);
+            champ.GetComponent<Score>().setScore(GetComponent<Score>().getScore());
+            CmdSpawn(champ);
+        }
     }
 
 }
